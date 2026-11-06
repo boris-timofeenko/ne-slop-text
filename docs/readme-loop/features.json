@@ -1,0 +1,426 @@
+{
+ "D1": {
+  "opening_move": {
+   "value": "role_statement",
+   "evidence": "A Claude Code skill for writing and fixing text"
+  },
+  "closing_move": {
+   "value": "logistics",
+   "evidence": "The theory behind the loop and the seed of the questionnaire weights."
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": "Slop here is the average"
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": "Short texts skip the loop. In a blind test, 100-word summaries"
+  },
+  "checklist_answering": {
+   "value": "systematic",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "mixed_with_caveats",
+   "evidence": "so the person stays the final judge"
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": "the white fringe of a \"magic eraser\" left on"
+  },
+  "stance": {
+   "value": true,
+   "evidence": "Slop here is the average"
+  },
+  "limits_admitted": {
+   "value": true,
+   "evidence": "so the person stays the final judge"
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "varied",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 65,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 4,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 4,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 1,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 0,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 923,
+   "evidence": ""
+  }
+ },
+ "D2": {
+  "opening_move": {
+   "value": "role_statement",
+   "evidence": "A Claude Code skill for writing and fixing text"
+  },
+  "closing_move": {
+   "value": "plain_fact_or_event",
+   "evidence": "The lint word lists are the weakest signal and the first to age."
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": "Slop lives in decisions, not in words"
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": "Rules catch what is in a text; they do not see what is missing."
+  },
+  "checklist_answering": {
+   "value": "systematic",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "mixed_with_caveats",
+   "evidence": "One judge, three tasks, one domain"
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": "Text I ran through the humanizer skill I could spot \"from a mile away\""
+  },
+  "stance": {
+   "value": true,
+   "evidence": "Slop lives in decisions, not in words"
+  },
+  "limits_admitted": {
+   "value": true,
+   "evidence": "One judge, three tasks, one domain"
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": true,
+   "evidence": "Clone the repo into your skills folder"
+  },
+  "register": {
+   "value": "conversational",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "varied",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 55,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 5,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 3,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 1,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 2,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 870,
+   "evidence": ""
+  }
+ },
+ "D3": {
+  "opening_move": {
+   "value": "role_statement",
+   "evidence": "A Claude Code skill for writing and fixing text"
+  },
+  "closing_move": {
+   "value": "recap",
+   "evidence": "The human stays the final judge."
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": "It lives in decisions"
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": "so the rule became: the ad's words can answer the reader"
+  },
+  "checklist_answering": {
+   "value": "systematic",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "mixed_with_caveats",
+   "evidence": "It also cut a line Boris liked"
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": "kept the push, the specific bug and the opinion"
+  },
+  "stance": {
+   "value": true,
+   "evidence": "It lives in decisions"
+  },
+  "limits_admitted": {
+   "value": true,
+   "evidence": "It also cut a line Boris liked"
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "varied",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 65,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 5,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 8,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 2,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 0,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 1,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 1157,
+   "evidence": ""
+  }
+ },
+ "DRAFT": {
+  "opening_move": {
+   "value": "role_statement",
+   "evidence": "A Claude Code skill for writing and fixing text"
+  },
+  "closing_move": {
+   "value": "plain_fact_or_event",
+   "evidence": "this is its part for text."
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": "Replacing words leaves the decisions where they were."
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": "StoryScope (Russell et al., COLM 2026) shows why."
+  },
+  "checklist_answering": {
+   "value": "some",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "mixed_with_caveats",
+   "evidence": "One judge, three tasks, one domain so far."
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": "a hero cut out of a friend's photo with the white fringe of a magic eraser left on"
+  },
+  "stance": {
+   "value": true,
+   "evidence": "Replacing words leaves the decisions where they were."
+  },
+  "limits_admitted": {
+   "value": true,
+   "evidence": "One judge, three tasks, one domain so far."
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": true,
+   "evidence": "Read the numbers as a direction, not a benchmark."
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "varied",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 50,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 3,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 4,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 1,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 2,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 650,
+   "evidence": ""
+  }
+ }
+}

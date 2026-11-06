@@ -1,0 +1,53 @@
+      feature                 defaults                                    draft
+P1    opening_move            ['role_statement', 'role_statement', 'role_statement']role_statement
+Keep  closing_move            ['logistics', 'plain_fact_or_event', 'recap']plain_fact_or_event
+P1    thesis_stated           [True, True, True]                          True
+P1    lesson_stated           [True, True, True]                          True
+P2    checklist_answering     ['systematic', 'systematic', 'systematic']  some
+P1    agency                  ['solo_hero', 'solo_hero', 'solo_hero']     solo_hero
+Keep  resolution              ['mixed_with_caveats', 'mixed_with_caveats', 'mixed_with_caveats']mixed_with_caveats
+Keep  episode_specificity     ['specific', 'specific', 'specific']        specific
+Keep  stance                  [True, True, True]                          True
+Keep  limits_admitted         [True, True, True]                          True
+      reader_specificity      ['none', 'none', 'none']                    none
+Keep  reader_address          [False, True, False]                        True
+      register                ['plain_professional', 'conversational', 'plain_professional']plain_professional
+      paragraph_shape         ['varied', 'varied', 'varied']              varied
+P1    inventory_sentences     [4, 5, 5]                                   3
+P1    process_description     [4, 3, 8]                                   4
+      resume_speak            [0, 0, 0]                                   0
+P1    significance_clauses    [1, 1, 2]                                   1
+      performed_emotion       [0, 0, 0]                                   0
+P2    clever_turns            [0, 2, 0]                                   2
+      colon_reveals           [0, 0, 0]                                   0
+      meta_about_text         [0, 0, 1]                                   0
+      brief_words_as_labels   [0, 0, 0]                                   0
+      brief_words_to_answer   [False, False, False]                       False
+
+shared 4-grams with defaults: 164/700 = 0.23
+1 philosophy before writing; 2026 arxiv 2604 03136; 5 to 93 9; 6 to 8 agent; 8 agent calls and; 95 5 to 93; a claude code skill; a hedge their own; a magic eraser left; a quest game belgrade; a text ne slop; agents on different models; ai fiction colm 2026; an episode an opinion; and fixing text so; and its graphics came; annotator md instructions for; are in docs evidence; arxiv 2604 03136 the; as written by a; ask claude code to; ask one to three; before writing find what; blind test page docs; boriswinner ne slop text; chau minh pham mohit; claude code skill for; claude code to write; claude skills ne slop; clone https github com; code skill for writing; code to write or; colm 2026 arxiv 2604; com boriswinner ne slop; could spot from a; creative work in general; detection only from 95; different models write the; discourse features loop questionnaire; docs evidence md how; et al colm 2026; events a hedge their; evidence md how the; feature leans machine like; features loop questionnaire json; fiction colm 2026 arxiv; files skill md the; find what only this; fix a text ne; fixing text so that; for creative work in; for the annotating agent; for writing and fixing; fresh agents on different; fringe of a magic; from 95 5 to; from a mile away; git clone https github; github com boriswinner ne; graphics came out alive; has an episode an; he could spot from; hedge their own wording; how the pipeline was; https github com boriswinner; humanizer skill he could; idiosyncrasies in ai fiction; in ai fiction colm; in docs evidence md; instructions for the annotating; investigating idiosyncrasies in ai; it reads as written; its graphics came out; iyyer john wieting storyscope; jenna russell rishanth rajendhran; john wieting storyscope investigating; judge three tasks one; leans machine like a; learn update_weights py shows; lint lint py surface; loop questionnaire json loop; machine like a reviser; made a quest game; magic eraser left on; matters ask one to; md how the pipeline; md instructions for the; minh pham mohit iyyer; models write the same; mohit iyyer john wieting; moved detection only from; ne slop or не; ne slop text a; ne slop text claude; of a magic eraser; on different models write; one judge three tasks; only from 95 5; only that at most; only this person has; or fix a text; or run ne slop; or не слоп or; own texts a cv; page docs evidence md; person has an episode; pham mohit iyyer john; philosophy before writing find; py shows where the; quest game belgrade 2026; rajendhran chau minh pham; reads as written by; rishanth rajendhran chau minh; ruined by a script; run ne slop text; run through the humanizer; russell et al colm; russell rishanth rajendhran chau; shows where the questionnaire; skill for creative work; skill for writing and; skill he could spot; skill md the pipeline; skills ne slop text; slop or не слоп; slop text a claude; slop text claude skills; so that it reads; spot from a mile; storyscope investigating idiosyncrasies in; storyscope russell et al; test page docs evidence; text a claude code; text claude skills ne; text matters ask one; text ne slop or; text so that it; texts under about 120; that it reads as; the humanizer skill he; the loop came first; the pipeline was found; the text matters ask; the white fringe of; their own wording if; this person has an; three fresh agents on; three tasks one domain; through the humanizer skill; to 8 agent calls; to write or fix; tools blind py blind; under about 120 words; update_weights py shows where; what only this person; white fringe of a; wieting storyscope investigating idiosyncrasies; with the white fringe; write or fix a; write the same text; writing and fixing text; writing find what only; не слоп or run; слоп or run ne
+
+opening: "# ne-slop-text A Claude Code skill for writing and fixing text so that it reads as written by a particular person."
+closest default opening (D3, similarity 0.82): "# ne-slop-text A Claude Code skill for writing and fixing text so that it reads as written by a specific person, not by the average of the internet."
+
+## P1: the draft does what the defaults do, and it leans machine-like
+- opening_move = role_statement: What does the first sentence after any greeting do? Example: "A Claude Code skill for writing and fixing text"
+- thesis_stated = True: Is there a sentence whose job is to state the overall point outright ('That is why I am a strong fit', 'In short, ...')? Example: "Replacing words leaves the decisions where they were."
+- lesson_stated = True: After an episode or example, does the text explain what it shows or what was learned ('That taught me...', 'This is what X means')? Example: "StoryScope (Russell et al., COLM 2026) shows why."
+- agency = solo_hero: Who drives the events described?
+- inventory_sentences = 3: Count sentences that list three or more items (tools, duties, checks, qualities).
+- process_description = 4: Count sentences that describe a setup or process with no event in it ('Test plans live in X, each case is mapped to Y, and CI exports results back').
+- significance_clauses = 1: Count clauses that explain meaning or importance ('which means', 'that means', 'this shows', trailing '-ing' clauses such as 'ensuring', 'enabling').
+- opening = # ne-slop-text A Claude Code skill for writing and fixing text so that it reads as written by a particular person.: The opening sentence is close to a default's opening.
+
+## P2: leans machine-like by weight
+- checklist_answering = some: Does the text walk through the brief's items one by one, like a checklist?
+- clever_turns = 2: Count sentences built for their sound: punchlines, aphorisms, chiasmus, wordplay, elliptical endings ('...hands tickets to one'), 'X is out of my control; Y is not'.
+
+## Keep: human-leaning, do not lose
+- closing_move = plain_fact_or_event: What does the last sentence before any sign-off do? Example: "this is its part for text."
+- resolution = mixed_with_caveats: How do the described episodes end? Example: "One judge, three tasks, one domain so far."
+- episode_specificity = specific: How specific is the most concrete episode? Example: "a hero cut out of a friend's photo with the white fringe of a magic eraser left on"
+- stance = True: Does the author state an opinion about the field or the work that goes beyond describing themselves? Example: "Replacing words leaves the decisions where they were."
+- limits_admitted = True: Does the author admit a gap, a doubt, or something that did not work? Example: "One judge, three tasks, one domain so far."
+- reader_address = True: Does the text address the reader directly beyond greeting and sign-off ('judge for yourselves', 'if you need...')? Example: "Read the numbers as a direction, not a benchmark."
