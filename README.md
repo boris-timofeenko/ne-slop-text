@@ -19,13 +19,13 @@ asks one to three questions, by voice if possible, and writes close to the answe
 
 The last round was a message to a hiring team. Four default writers got the same material and no method; the two Opus
 letters had the same skeleton down to the closing line, "I'd be glad to have that coffee". An annotator marked them
-and the ne-slop draft on 21 discourse features (`loop/questionnaire.json`), `loop/consensus.py` flagged where the
+and the ne-slop draft on 21 discourse features (now 26, in `loop/questionnaire.json`), `loop/consensus.py` flagged where the
 draft did what every default did and the feature leaned machine-like, and a reviser changed only that. It cut three
 clever turns and three of four phrases quoted from the ad, and the draft moved from third place to first. Claude's
 hand-written letter, with everything learned earlier, came fourth; the plain Opus letter came last, and Boris
 recognised it.
 
-The 21 features were seeded from StoryScope (Russell et al., COLM 2026): across 61,608 stories by people and five
+The features were seeded from StoryScope (Russell et al., COLM 2026): across 61,608 stories by people and five
 models, narrative decisions alone told AI from human at 93% F1, and rewriting the clichés moved detection only from
 95.5% to 93.9%. `learn/update_weights.py` compares their weights with Boris's marks.
 
@@ -132,7 +132,7 @@ the result back to Claude. The marks go to `learn/marks.jsonl`.
 
 ```
 SKILL.md                 the pipeline, as Claude reads it
-loop/questionnaire.json  21 features with weights
+loop/questionnaire.json  26 questions, 24 with weights
 loop/consensus.py        where the draft sits with the defaults
 loop/reviser.md          what the reviser may and may not do
 loop/annotator.md        instructions for the annotating agent
