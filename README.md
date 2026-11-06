@@ -67,6 +67,13 @@ tools/blind.py           blind test page
 docs/evidence.md         how the pipeline was found
 ```
 
+## This README
+
+It went through the skill. Three fresh agents (Opus, Sonnet, Haiku) wrote their own READMEs from the same context, and
+all three opened like the first draft did: "A Claude Code skill for...". The report also flagged two clever turns and a
+moral stated after the story. One revision moved the game to the top and told the mechanism through the tests. The
+draft, the defaults and the report are in `docs/readme-loop/`.
+
 ## Credits
 
 - Jenna Russell, Rishanth Rajendhran, Chau Minh Pham, Mohit Iyyer, John Wieting. "StoryScope: Investigating
