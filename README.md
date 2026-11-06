@@ -35,7 +35,7 @@ One judge, three tasks, one domain so far. Read the numbers as a direction. The 
 ## Install
 
 ```bash
-git clone https://github.com/boriswinner/ne-slop-text ~/.claude/skills/ne-slop-text
+git clone https://github.com/boris-timofeenko/ne-slop-text ~/.claude/skills/ne-slop-text
 ```
 
 Then ask Claude Code to write or fix a text "ne-slop" (or "не слоп"), or run `/ne-slop-text`. Texts under about 120
