@@ -1,0 +1,44 @@
+      feature                 defaults                                    draft
+      opening_move            ['role_statement', 'self_claim', 'episode'] episode
+Keep  closing_move            ['recap', 'recap', 'plain_fact_or_event']   plain_fact_or_event
+      thesis_stated           [True, True, False]                         False
+      lesson_stated           [True, True, False]                         False
+      checklist_answering     ['none', 'none', 'none']                    none
+P1    agency                  ['solo_hero', 'solo_hero', 'shared_we']     solo_hero
+Keep  resolution              ['clean_success', 'clean_success', 'clean_success']open
+Keep  episode_specificity     ['specific', 'specific', 'specific']        specific
+P1    stance                  [False, True, False]                        False
+P1    limits_admitted         [False, False, False]                       False
+      reader_specificity      ['none', 'none', 'none']                    none
+      reader_address          [False, False, False]                       False
+      register                ['plain_professional', 'plain_professional', 'plain_professional']plain_professional
+      paragraph_shape         ['single_paragraph', 'single_paragraph', 'single_paragraph']single_paragraph
+      inventory_sentences     [0, 0, 0]                                   0
+      process_description     [1, 1, 0]                                   0
+      resume_speak            [0, 0, 0]                                   0
+      significance_clauses    [0, 2, 1]                                   0
+      performed_emotion       [0, 0, 0]                                   0
+      clever_turns            [0, 1, 0]                                   0
+      colon_reveals           [1, 0, 0]                                   0
+      meta_about_text         [0, 0, 0]                                   0
+      brief_words_as_labels   [0, 0, 0]                                   0
+      brief_words_to_answer   [False, False, False]                       False
+
+shared 4-grams with defaults: 12/65 = 0.18
+a month or so; able to sign up; be able to sign; first prototype of our; i already knew that; i wrote a test; model didn't know the; should be able to; so i wrote a; the model didn't know; the very first prototype; very first prototype of
+
+opening: "When we checked the very first prototype of our WhatsApp onboarding agent, I already knew that a language model doesn't always know what day it is."
+closest default opening (haiku, similarity 0.56): "We caught this one on the very first prototype of our AI onboarding agent in WhatsApp, the one that registers users."
+
+## P1: the draft does what the defaults do, and it leans machine-like
+- agency = solo_hero: Who drives the events described?
+- stance = False: Does the author state an opinion about the field or the work that goes beyond describing themselves?
+- limits_admitted = False: Does the author admit a gap, a doubt, or something that did not work?
+- opening = When we checked the very first prototype of our WhatsApp onboarding agent, I already knew that a language model doesn't always know what day it is.: The opening sentence is close to a default's opening.
+
+## P2: leans machine-like by weight
+
+## Keep: human-leaning, do not lose
+- closing_move = plain_fact_or_event: What does the last sentence before any sign-off do? Example: "So I wrote a test that fails on exactly that."
+- resolution = open: How do the described episodes end?
+- episode_specificity = specific: How specific is the most concrete episode?

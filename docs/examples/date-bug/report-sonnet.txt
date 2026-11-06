@@ -1,0 +1,50 @@
+      feature                 defaults                                    draft
+P2    opening_move            ['role_statement', 'self_claim', 'episode'] self_claim
+P1    closing_move            ['recap', 'recap', 'plain_fact_or_event']   recap
+P1    thesis_stated           [True, True, False]                         True
+P1    lesson_stated           [True, True, False]                         True
+      checklist_answering     ['none', 'none', 'none']                    none
+P1    agency                  ['solo_hero', 'solo_hero', 'shared_we']     solo_hero
+P1    resolution              ['clean_success', 'clean_success', 'clean_success']clean_success
+Keep  episode_specificity     ['specific', 'specific', 'specific']        specific
+Keep  stance                  [False, True, False]                        True
+P1    limits_admitted         [False, False, False]                       False
+      reader_specificity      ['none', 'none', 'none']                    none
+      reader_address          [False, False, False]                       False
+      register                ['plain_professional', 'plain_professional', 'plain_professional']plain_professional
+      paragraph_shape         ['single_paragraph', 'single_paragraph', 'single_paragraph']single_paragraph
+      inventory_sentences     [0, 0, 0]                                   0
+P1    process_description     [1, 1, 0]                                   1
+      resume_speak            [0, 0, 0]                                   0
+P1    significance_clauses    [0, 2, 1]                                   2
+      performed_emotion       [0, 0, 0]                                   0
+P2    clever_turns            [0, 1, 0]                                   1
+      colon_reveals           [1, 0, 0]                                   0
+      meta_about_text         [0, 0, 0]                                   0
+      brief_words_as_labels   [0, 0, 0]                                   0
+      brief_words_to_answer   [False, False, False]                       False
+
+shared 4-grams with defaults: 126/126 = 1.00
+18 only about a; a bug that no; a good reminder that; a month earlier i; a qa tech lead; a test for exactly; about a month earlier; about what the model; age boundary and it; agent in whatsapp that; agent's answers with llm; ai onboarding agent in; ai systems you have; also check the agent's; an ai onboarding agent; and it failed on; and on its first; and that's why we; answers with llm as; as a qa tech; because of that it; boundary and it failed; bug that no one; can't know and that's; caught a bug that; check the agent's answers; current date so i; date because of that; date so i wrote; didn't know today's date; don't reliably know the; earlier i knew that; exactly that age boundary; failed on the prototype; fintech product has an; first prototype the llm; for exactly that age; for our fintech product; fundamentally can't know and; good reminder that when; had turned 18 only; has an ai onboarding; have thought to look; have to think about; i knew that language; i wrote a test; i've written as a; in whatsapp that registers; it failed on the; it refused registration to; it's a good reminder; its first prototype the; knew that language models; know and that's why; know the current date; know today's date because; language models don't reliably; lead caught a bug; llm as a judge; llm didn't know today's; look for our fintech; model fundamentally can't know; models don't reliably know; month earlier i knew; most valuable tests i've; new users and on; no one would have; of that it refused; of the most valuable; on its first prototype; on the prototype it's; onboarding agent in whatsapp; one of the most; one would have thought; only about a month; our fintech product has; people who had turned; product has an ai; prototype it's a good; prototype the llm didn't; qa tech lead caught; refused registration to people; registers new users and; registration to people who; reliably know the current; reminder that when you; so i wrote a; systems you have to; tech lead caught a; test ai systems you; test for exactly that; tests i've written as; that age boundary and; that it refused registration; that language models don't; that no one would; that registers new users; that when you test; that's why we also; the agent's answers with; the current date so; the llm didn't know; the model fundamentally can't; the most valuable tests; the prototype it's a; think about what the; thought to look for; to look for our; to people who had; to think about what; today's date because of; turned 18 only about; users and on its; valuable tests i've written; we also check the; what the model fundamentally; whatsapp that registers new; when you test ai; who had turned 18; why we also check; with llm as a; would have thought to; written as a qa; wrote a test for; you have to think; you test ai systems
+
+opening: "One of the most valuable tests I've written as a QA tech lead caught a bug that no one would have thought to look for."
+closest default opening (sonnet, similarity 1.00): "One of the most valuable tests I've written as a QA tech lead caught a bug that no one would have thought to look for."
+
+## P1: the draft does what the defaults do, and it leans machine-like
+- closing_move = recap: What does the last sentence before any sign-off do? Example: "that's why we also check the agent's answers with LLM-as-a-judge"
+- thesis_stated = True: Is there a sentence whose job is to state the overall point outright ('That is why I am a strong fit', 'In short, ...')?
+- lesson_stated = True: After an episode or example, does the text explain what it shows or what was learned ('That taught me...', 'This is what X means')?
+- agency = solo_hero: Who drives the events described?
+- resolution = clean_success: How do the described episodes end?
+- limits_admitted = False: Does the author admit a gap, a doubt, or something that did not work?
+- process_description = 1: Count sentences that describe a setup or process with no event in it ('Test plans live in X, each case is mapped to Y, and CI exports results back').
+- significance_clauses = 2: Count clauses that explain meaning or importance ('which means', 'that means', 'this shows', trailing '-ing' clauses such as 'ensuring', 'enabling'). Example: "It's a good reminder that...; that's why we also check"
+- opening = One of the most valuable tests I've written as a QA tech lead caught a bug that no one would have thought to look for.: The opening sentence is close to a default's opening.
+
+## P2: leans machine-like by weight
+- opening_move = self_claim: What does the first sentence after any greeting do? Example: "One of the most valuable tests I've written as a QA tech lead"
+- clever_turns = 1: Count sentences built for their sound: punchlines, aphorisms, chiasmus, wordplay, elliptical endings ('...hands tickets to one'), 'X is out of my control; Y is not'. Example: "a bug that no one would have thought to look for"
+
+## Keep: human-leaning, do not lose
+- episode_specificity = specific: How specific is the most concrete episode?
+- stance = True: Does the author state an opinion about the field or the work that goes beyond describing themselves? Example: "you have to think about what the model fundamentally can't know"

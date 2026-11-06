@@ -1,0 +1,1 @@
+When we checked the very first prototype of our WhatsApp onboarding agent, I already knew that a language model doesn't always know what day it is. Someone who has barely turned 18 should be able to sign up. The model didn't know the exact date and blocked people who were just over 18, by a month or so. So I wrote a test that fails on exactly that.

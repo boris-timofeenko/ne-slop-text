@@ -1,0 +1,426 @@
+{
+ "opus": {
+  "opening_move": {
+   "value": "role_statement",
+   "evidence": "I'm a QA tech lead at a fintech"
+  },
+  "closing_move": {
+   "value": "recap",
+   "evidence": "this bug was caught by a plain boundary test, written because I knew where models tend to slip"
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": "this bug was caught by a plain boundary test"
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": ""
+  },
+  "checklist_answering": {
+   "value": "none",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "clean_success",
+   "evidence": ""
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": ""
+  },
+  "stance": {
+   "value": false,
+   "evidence": ""
+  },
+  "limits_admitted": {
+   "value": false,
+   "evidence": ""
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "single_paragraph",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 4,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 0,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 1,
+   "evidence": "We also check the agent's answers with LLM-as-a-judge"
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 0,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 0,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 1,
+   "evidence": "one thing about language models: they don't reliably know"
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 122,
+   "evidence": ""
+  }
+ },
+ "sonnet": {
+  "opening_move": {
+   "value": "self_claim",
+   "evidence": "One of the most valuable tests I've written as a QA tech lead"
+  },
+  "closing_move": {
+   "value": "recap",
+   "evidence": "that's why we also check the agent's answers with LLM-as-a-judge"
+  },
+  "thesis_stated": {
+   "value": true,
+   "evidence": ""
+  },
+  "lesson_stated": {
+   "value": true,
+   "evidence": ""
+  },
+  "checklist_answering": {
+   "value": "none",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "clean_success",
+   "evidence": ""
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": ""
+  },
+  "stance": {
+   "value": true,
+   "evidence": "you have to think about what the model fundamentally can't know"
+  },
+  "limits_admitted": {
+   "value": false,
+   "evidence": ""
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "single_paragraph",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 4,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 0,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 1,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 2,
+   "evidence": "It's a good reminder that...; that's why we also check"
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 1,
+   "evidence": "a bug that no one would have thought to look for"
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 126,
+   "evidence": ""
+  }
+ },
+ "haiku": {
+  "opening_move": {
+   "value": "episode",
+   "evidence": "We caught this one on the very first prototype"
+  },
+  "closing_move": {
+   "value": "plain_fact_or_event",
+   "evidence": "The test failed on the prototype, which is how the bug showed up."
+  },
+  "thesis_stated": {
+   "value": false,
+   "evidence": ""
+  },
+  "lesson_stated": {
+   "value": false,
+   "evidence": ""
+  },
+  "checklist_answering": {
+   "value": "none",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "shared_we",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "clean_success",
+   "evidence": ""
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": ""
+  },
+  "stance": {
+   "value": false,
+   "evidence": ""
+  },
+  "limits_admitted": {
+   "value": false,
+   "evidence": ""
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "single_paragraph",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 3,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 0,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 0,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 1,
+   "evidence": "which is how the bug showed up"
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 0,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 107,
+   "evidence": ""
+  }
+ },
+ "draft": {
+  "opening_move": {
+   "value": "episode",
+   "evidence": "When we checked the very first prototype"
+  },
+  "closing_move": {
+   "value": "plain_fact_or_event",
+   "evidence": "So I wrote a test that fails on exactly that."
+  },
+  "thesis_stated": {
+   "value": false,
+   "evidence": ""
+  },
+  "lesson_stated": {
+   "value": false,
+   "evidence": ""
+  },
+  "checklist_answering": {
+   "value": "none",
+   "evidence": ""
+  },
+  "agency": {
+   "value": "solo_hero",
+   "evidence": ""
+  },
+  "resolution": {
+   "value": "open",
+   "evidence": ""
+  },
+  "episode_specificity": {
+   "value": "specific",
+   "evidence": ""
+  },
+  "stance": {
+   "value": false,
+   "evidence": ""
+  },
+  "limits_admitted": {
+   "value": false,
+   "evidence": ""
+  },
+  "reader_specificity": {
+   "value": "none",
+   "evidence": ""
+  },
+  "reader_address": {
+   "value": false,
+   "evidence": ""
+  },
+  "register": {
+   "value": "plain_professional",
+   "evidence": ""
+  },
+  "paragraph_shape": {
+   "value": "single_paragraph",
+   "evidence": ""
+  },
+  "named_specifics": {
+   "value": 3,
+   "evidence": ""
+  },
+  "inventory_sentences": {
+   "value": 0,
+   "evidence": ""
+  },
+  "process_description": {
+   "value": 0,
+   "evidence": ""
+  },
+  "resume_speak": {
+   "value": 0,
+   "evidence": ""
+  },
+  "significance_clauses": {
+   "value": 0,
+   "evidence": ""
+  },
+  "performed_emotion": {
+   "value": 0,
+   "evidence": ""
+  },
+  "clever_turns": {
+   "value": 0,
+   "evidence": ""
+  },
+  "colon_reveals": {
+   "value": 0,
+   "evidence": ""
+  },
+  "meta_about_text": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_as_labels": {
+   "value": 0,
+   "evidence": ""
+  },
+  "brief_words_to_answer": {
+   "value": false,
+   "evidence": ""
+  },
+  "length_words": {
+   "value": 68,
+   "evidence": ""
+  }
+ }
+}

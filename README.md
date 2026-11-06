@@ -42,6 +42,83 @@ Then ask Claude Code to write or fix a text "ne-slop" (or "не слоп"), or r
 words skip the loop; on longer ones it runs three default writers and up to two revisions, 6 to 8 agent calls and a
 few minutes. The scripts need Python 3 and nothing else.
 
+## Usage
+
+Give it the task or the text, and whatever material you have. Your own speech is the best material: answer a couple
+of questions by voice and paste the transcript, in any language.
+
+```
+/ne-slop-text write a message to the hiring team for this job: <link>. My CV is cv.pdf. What I said about the project: <transcript>
+/ne-slop-text fix this paragraph: <text>. What actually happened: <notes>
+```
+
+You get the text back, a few lines on what changed and why, and the questions the material could not answer. The
+skill does not touch your files; drafts go next to them.
+
+## Example: one paragraph, five ways
+
+Task: "Write one paragraph for my LinkedIn post about this bug we caught." Material: Boris's spoken answer in
+Russian, in [`docs/examples/date-bug/context.md`](docs/examples/date-bug/context.md). Every paragraph below is a real
+run, not edited by hand.
+
+**From scratch.** Plain Opus, no method:
+
+> I'm a QA tech lead at a fintech, and one of our products is an AI onboarding agent that registers users in WhatsApp.
+> When we tested its very first prototype, I already knew one thing about language models: they don't reliably know
+> what today's date is. So I wrote a test for the age boundary, using someone who had turned 18 about a month earlier
+> and should be able to sign up without any trouble. The test failed. The model didn't know the current date and
+> refused registration to people who were already old enough. We also check the agent's answers with
+> LLM-as-a-judge, but this bug was caught by a plain boundary test, written because I knew where models tend to slip.
+
+ne-slop-text, a draft from the material and one round of the loop:
+
+> I know that a language model doesn't always know what today's date is. Someone who has barely turned 18 should
+> already be able to sign up, but on the very first prototype of our WhatsApp onboarding agent the model didn't know
+> the exact date and blocked people who were just over 18, by a month or so. So I wrote a test that fails on exactly
+> that.
+
+**Fixing an existing text.** The source is Sonnet's paragraph for the same task:
+
+> One of the most valuable tests I've written as a QA tech lead caught a bug that no one would have thought to look
+> for. Our fintech product has an AI onboarding agent in WhatsApp that registers new users, and on its first prototype
+> the LLM didn't know today's date. Because of that, it refused registration to people who had turned 18 only about a
+> month earlier. I knew that language models don't reliably know the current date, so I wrote a test for exactly that
+> age boundary, and it failed on the prototype. It's a good reminder that when you test AI systems, you have to think
+> about what the model fundamentally can't know, and that's why we also check the agent's answers with LLM-as-a-judge.
+
+humanizer:
+
+> One of the best tests I've written as a QA tech lead caught a bug nobody would have thought to look for. Our fintech
+> product has an AI onboarding agent in WhatsApp that registers new users. On the first prototype the LLM didn't know
+> today's date, so it refused to register people who had turned 18 only about a month earlier. Language models don't
+> reliably know the current date. I knew that, so I wrote a test right on that age boundary, and the prototype failed
+> it. With AI systems you have to think about what the model can't know, and that's why we also check the agent's
+> answers with LLM-as-a-judge.
+
+unslop:
+
+> One of the most valuable tests I've written as a QA tech lead caught a date bug. Our fintech product has an AI
+> onboarding agent in WhatsApp that registers new users, and on its first prototype the LLM didn't know today's date.
+> Because of that, it refused registration to people who had turned 18 only about a month earlier. I knew that
+> language models don't reliably know the current date, so I wrote a test for exactly that age boundary, and it failed
+> on the prototype. When you test AI systems, you have to think about what the model fundamentally can't know, and
+> that's why we also check the agent's answers with LLM-as-a-judge.
+
+ne-slop-text, fix mode:
+
+> I had to test the very first prototype of the AI agent that registers new users in WhatsApp for our fintech
+> product. I know that a neural net doesn't always know what today's date is. If someone has only just turned 18, they
+> should already be able to register, but the neural net didn't know the exact date and blocked registration for
+> people a little over 18, by about a month. So I wrote a test that would fail on exactly that, and on the prototype
+> it failed.
+
+The surface lint finds nothing in any of the five. humanizer and unslop keep "one of the best (most valuable) tests"
+and the closing lesson about what the model can't know. ne-slop-text puts Boris's own sentence in their place ("a
+neural net doesn't always know what today's date is", from "нейронка не всегда знает, какое сегодня число") and stops
+where the test fails. On a paragraph this short the loop asked for an outside force and an
+admitted doubt; the material had neither, and the reviser left them out rather than invent them. Reports and
+annotations are in [`docs/examples/date-bug/`](docs/examples/date-bug/).
+
 ## Blind test
 
 ```bash
