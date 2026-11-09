@@ -1,12 +1,24 @@
 """Слепой тест для любых текстов: ранжирование без повторов + пометки «слоп / живое» по предложениям.
 
-usage: blind.py OUT.html KEY.json "Заголовок" "Подзаголовок" name=path[=метка] ...
+usage: blind.py OUT.html KEY.json "Заголовок" "Подзаголовок" name=path[=метка] ... [--raw]
 Текст: абзацы через пустую строку; строки «- » — пункты списка. Порядок вариантов перемешивается, ключ пишется в KEY.json
 и в код страницы (кнопка «Раскрыть»). Результат собирается кнопкой и копируется в буфер.
+
+Типографика выравнивается у всех вариантов (кавычки прямые, длинное и среднее тире -> « - »): иначе один вариант
+выдаёт себя оформлением. В одном тесте оригинал человека был единственным с длинным тире, и судья, приученный считать
+тире признаком ИИ, поставил его последним. --raw отключает выравнивание.
 """
 import html, json, random, re, sys, time
 
-out, keyfile, title, subtitle, *items = sys.argv[1:]
+RAW = "--raw" in sys.argv
+out, keyfile, title, subtitle, *items = [a for a in sys.argv[1:] if a != "--raw"]
+
+
+def typography(t):
+    if RAW:
+        return t
+    t = t.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+    return re.sub(r"\s*[—–]\s*", " - ", t)
 variants = []
 for it in items:
     parts = it.split("=", 2)
@@ -38,7 +50,7 @@ n = len(variants)
 for L, (name, path, label) in zip(letters, variants):
     key[L] = {"name": name, "label": label}
     sheets.append(f'''<section class="sheet"><div class="rail">{L}</div><div class="body">
-{render(open(path).read(), L)}
+{render(typography(open(path).read()), L)}
 <div class="rate"><span class="lbl">Место (1 = лучше всех)</span><span class="stars" data-v="{L}">{"".join(f'<button data-n="{i}">{i}</button>' for i in range(1, n + 1))}</span>
 <textarea data-v="{L}" placeholder="Что режет глаз, что живое (необязательно)"></textarea></div></div></section>''')
 json.dump(key, open(keyfile, "w"), ensure_ascii=False, indent=1)

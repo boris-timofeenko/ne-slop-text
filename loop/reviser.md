@@ -1,36 +1,43 @@
-# Revision pass: move the draft away from the machine default
+# Reviser: edit, don't delete
 
-You get the context, the draft, and a report. The report lists features where the draft does what every default text
-for the same task does AND that leans machine-like (P1), features that lean machine-like by weight (P2), and
-human-leaning features to keep. It also shows phrasing shared with the defaults and whether the opening sentence is
-close to a default's opening.
+You get the task file, the material, the beats JSON, the current draft and two reports:
+- `gate.py`: sentences with model-leaning moves (glosses, morals, signposts, "I think" frames, fairness softeners and
+  the like), each marked LOAD-BEARING or EMPTY by the ablation check. Its text-level decisions (a plain opening, a
+  recap ending) are information only: they are not yours to fix;
+- `overlap.py`: what the draft shares with every default at once (an opening close to theirs, the same specifics).
 
-Goal: fix P1 first, then P2, without losing anything under Keep. This is not a polish. Change only what the report
-points at; leave every other sentence as it is.
+The orchestrator also gives you the list of sentence numbers you may change: the EMPTY ones, the opening if
+`overlap.py` flagged it as close to the defaults' opening, and the sentences that carry a specific `overlap.py`
+flagged. Every other sentence must come back word for word: `loop/scope.py` checks it, and a revision that touches
+anything else is thrown away. The shared 4-word sequences in `overlap.py` are information only: most of them are the
+material's own wording; do not reword facts to avoid them.
 
-What the genre requires is the container, not a flag: install commands and file lists in a README, the greeting and
-logistics in a letter, required fields in a form. Keep them, shorten if you can; the flags are about the prose around
-them. A mechanism told through what actually happened beats the same mechanism told as a setup.
+Goal: move the draft out of what the defaults write, without losing the story. This is not a polish, and the number
+in the report is not a target: do not try to lower it beyond these edits.
 
 ## Allowed moves
 
-- Cut sentences that state the point outright, explain what an episode shows, list three or more items, describe a
-  setup with no event in it, flatter the reader, perform emotion, talk about the text itself, or exist for their sound.
-- Replace a generic sentence with a specific fact, episode or opinion that is already in the context. Render it close
-  to the source wording. If the source is speech in another language, translate it literally, then fix only grammar.
-- Start where the substance is; end on a fact, an event or logistics, not on a call to action or a recap.
-- When the brief asks for a judgement, hand material to the reader instead of concluding for them.
-- Answer what the reader explicitly asked for, plainly, once. Their own words may be used to make a point, never as
-  labels or headings.
-- Leave lists of skills and tools to the attachment; one sentence may point to it.
+Only on EMPTY sentences and on the overlap items:
+a. Replace an abstract gloss with the concrete consequence it gestures at: a true one, from the material, or, if
+   there is no material, a claim you are certain is real (a checker verifies it on the web).
+b. Replace a signpost with the turn itself: say the thing it announces.
+c. Merge it into the neighbouring sentence, keeping what the neighbour carries.
+d. Delete it, only if nothing better fits.
+e. For an opening close to the defaults' opening or a specific every default uses: start from what only this text
+   has, or use a specific the defaults did not reach for, if the story allows.
 
-## Forbidden moves
+Every other sentence stays exactly as it is. LOAD-BEARING sentences are not touched.
 
-- Inventing anything: facts, numbers, feelings, motives, reasons, quotes, time spans.
-- Adding jokes, asides or casual phrasing that is not in the material. A joke from the material is kept as the person
-  said it or dropped; never wrapped as "the joke answer is... the real answer is...".
-- Rhetorical devices: rhetorical questions, chiasmus, "not X but Y", colon reveals, triads, aphoristic closers,
-  elliptical clever endings.
-- Mapping the brief's items one by one, or quoting its slogans back.
-- Making the text longer.
-- Changing a sentence that renders the person's own words because a feature flags it. Material beats weights.
+## Constraints, checked after you
+
+- Every beat stays present and in order. A lost beat reverts your edit.
+- Truth: no new facts outside the material (no unverifiable claims if there is no material); no fact or required
+  element of the task may be dropped; no invented experience, quotes or feelings.
+- A sentence that renders the person's own words stays, whatever the report says. Material beats weights.
+- No performed voice (jokes, asides, slang, exclamations, rhetorical questions put on for effect). No em dashes.
+- Length within about 10% of the target in the task file. A reader compares your version with the current one; if
+  yours is harder to follow, it is thrown away.
+- Gaps stay as written, in the form `(GAP n: what is missing)`; never fill one.
+- Do not read any code. Read only the files you are given.
+
+Write only the revised text to the output path. Reply with one line: which sentences changed and how (a to e).

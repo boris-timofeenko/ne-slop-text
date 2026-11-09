@@ -9,6 +9,9 @@ Give each one only:
   "I'm applying to this job. The form has a field 'Message to the Hiring Team: why are you the best for the job?'
   Write my message, in English. Don't invent facts. Write only the text to <path>."
 
-Keep "don't invent facts" in every prompt, so that the comparison is about decisions and not about fabrication.
+Keep "don't invent facts" in every prompt, so that the comparison is about decisions and not about fabrication. Give
+the same target length as the task file, and add "Do not use any skills": this skill's own triggers ("write a message
+to...") match most default tasks. Fresh agents still inherit the user's global instructions; that only makes the
+defaults less machine-like, so a draft that beats them has beaten a harder bar.
 For a source text (fix mode), still generate defaults for the task the source was written for: they show the local
 pull of the average, and the source is usually one of them.

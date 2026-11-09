@@ -1,0 +1,163 @@
+{
+ "model": "en",
+ "trained_on": "en_train",
+ "intercept": 0.5450901406872122,
+ "zh": -3.3681228328166855,
+ "zd": 1.8494944651885115,
+ "n_typical": 28.0,
+ "features": [
+  {
+   "feature": "gloss",
+   "sentence_level": true,
+   "coef": 0.26840010407529613,
+   "mean": 0.060864266030782536,
+   "scale": 0.056807060664992574
+  },
+  {
+   "feature": "signpost",
+   "sentence_level": true,
+   "coef": 0.014058933539208998,
+   "mean": 0.05552128523822893,
+   "scale": 0.048341180165689696
+  },
+  {
+   "feature": "stance_label",
+   "sentence_level": true,
+   "coef": 0.2921585050258776,
+   "mean": 0.04412238684128831,
+   "scale": 0.05053606731981653
+  },
+  {
+   "feature": "fairness_softener",
+   "sentence_level": true,
+   "coef": 0.4923929452749283,
+   "mean": 0.012971428588946383,
+   "scale": 0.027007592985578248
+  },
+  {
+   "feature": "earnest_reframe",
+   "sentence_level": true,
+   "coef": 0.3783453662404931,
+   "mean": 0.012556901898407176,
+   "scale": 0.027332770653293734
+  },
+  {
+   "feature": "outside_image",
+   "sentence_level": true,
+   "coef": -0.9385722902668635,
+   "mean": 0.019604092266694427,
+   "scale": 0.05151190805511246
+  },
+  {
+   "feature": "irony",
+   "sentence_level": true,
+   "coef": -0.24655913111358174,
+   "mean": 0.02053488240980523,
+   "scale": 0.04323032965021528
+  },
+  {
+   "feature": "register_shift",
+   "sentence_level": true,
+   "coef": -0.41196671196379364,
+   "mean": 0.005820749842939466,
+   "scale": 0.021568263847734703
+  },
+  {
+   "feature": "question",
+   "sentence_level": true,
+   "coef": -0.5348414790750805,
+   "mean": 0.02267972718682518,
+   "scale": 0.0507651306463539
+  },
+  {
+   "feature": "direct_speech",
+   "sentence_level": true,
+   "coef": -0.5631235806575273,
+   "mean": 0.018061371145368276,
+   "scale": 0.05443373450882348
+  },
+  {
+   "feature": "aside",
+   "sentence_level": true,
+   "coef": -0.9631978827408468,
+   "mean": 0.009198212458364361,
+   "scale": 0.0239552471572119
+  },
+  {
+   "feature": "exclamation",
+   "sentence_level": true,
+   "coef": -0.9574693632039266,
+   "mean": 0.011024933164085503,
+   "scale": 0.029927989816867496
+  },
+  {
+   "feature": "fragment",
+   "sentence_level": true,
+   "coef": -0.24527426287071816,
+   "mean": 0.009579616744160836,
+   "scale": 0.02771425479124327
+  },
+  {
+   "feature": "scare_quotes",
+   "sentence_level": true,
+   "coef": -0.5493318760201299,
+   "mean": 0.012860409326606387,
+   "scale": 0.03638919298929111
+  },
+  {
+   "feature": "opening=plain_setup",
+   "sentence_level": false,
+   "coef": 0.3172181745635364,
+   "mean": 0.5821917808219178,
+   "scale": 0.4931982473258819
+  },
+  {
+   "feature": "closing=recap_or_moral",
+   "sentence_level": false,
+   "coef": 0.5360303968099357,
+   "mean": 0.3219178082191781,
+   "scale": 0.4672116575713181
+  }
+ ],
+ "band": {
+  "norm": 20.851228958245308,
+  "inside_threshold": 94.84421772067887,
+  "moves": {
+   "gloss": {
+    "weight": 90.55410451339593,
+    "q50": 0.03225806451612903,
+    "q75": 0.07692307692307693
+   },
+   "signpost": {
+    "weight": 5.573947936523592,
+    "q50": 0.03571428571428571,
+    "q75": 0.06666666666666667
+   },
+   "stance_label": {
+    "weight": 110.80130357193785,
+    "q50": 0.0,
+    "q75": 0.043478260869565216
+   },
+   "fairness_softener": {
+    "weight": 349.42479631254855,
+    "q50": 0.0,
+    "q75": 0.0
+   },
+   "earnest_reframe": {
+    "weight": 265.29712329660197,
+    "q50": 0.0,
+    "q75": 0.0
+   },
+   "opening=plain_setup": {
+    "weight": 12.327196412896507,
+    "q50": 0.0,
+    "q75": 1.0
+   },
+   "closing=recap_or_moral": {
+    "weight": 21.988901116539207,
+    "q50": 0.0,
+    "q75": 0.0
+   }
+  }
+ }
+}

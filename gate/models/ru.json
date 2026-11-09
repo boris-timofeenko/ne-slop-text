@@ -1,0 +1,109 @@
+{
+ "model": "ru",
+ "trained_on": "ru",
+ "intercept": 1.088857404289837,
+ "zh": -4.469139324643963,
+ "zd": 2.9415229806011034,
+ "n_typical": 37.0,
+ "features": [
+  {
+   "feature": "moral",
+   "sentence_level": true,
+   "coef": 1.2069257623396699,
+   "mean": 0.03450885189196167,
+   "scale": 0.03557774381501002
+  },
+  {
+   "feature": "stance_label",
+   "sentence_level": true,
+   "coef": 0.03764246017401348,
+   "mean": 0.033914836136719646,
+   "scale": 0.03576152881244991
+  },
+  {
+   "feature": "outside_image",
+   "sentence_level": true,
+   "coef": -0.7977794935307448,
+   "mean": 0.01973266477956712,
+   "scale": 0.042089426715701664
+  },
+  {
+   "feature": "irony",
+   "sentence_level": true,
+   "coef": -0.08199732995858279,
+   "mean": 0.04212221227115128,
+   "scale": 0.05817715331706707
+  },
+  {
+   "feature": "register_shift",
+   "sentence_level": true,
+   "coef": -1.5246056151716243,
+   "mean": 0.017670678534004274,
+   "scale": 0.04313611640905337
+  },
+  {
+   "feature": "direct_speech",
+   "sentence_level": true,
+   "coef": -0.7452738300713977,
+   "mean": 0.02020425234586076,
+   "scale": 0.046257575232080794
+  },
+  {
+   "feature": "aside",
+   "sentence_level": true,
+   "coef": -0.888556981379243,
+   "mean": 0.011677808466043415,
+   "scale": 0.029621864930236094
+  },
+  {
+   "feature": "exclamation",
+   "sentence_level": true,
+   "coef": -0.23076245507975432,
+   "mean": 0.006702041565503459,
+   "scale": 0.018511105163566726
+  },
+  {
+   "feature": "scare_quotes",
+   "sentence_level": true,
+   "coef": -0.4832430040936963,
+   "mean": 0.004750755065656154,
+   "scale": 0.016223350354487964
+  },
+  {
+   "feature": "opening=plain_setup",
+   "sentence_level": false,
+   "coef": 0.3650552049286356,
+   "mean": 0.5372340425531915,
+   "scale": 0.4986116986946326
+  },
+  {
+   "feature": "closing=recap_or_moral",
+   "sentence_level": false,
+   "coef": 0.13771900495434533,
+   "mean": 0.5638297872340425,
+   "scale": 0.4959090221619858
+  },
+  {
+   "feature": "closing=joke_or_ironic_line",
+   "sentence_level": false,
+   "coef": -0.42962800641157506,
+   "mean": 0.10106382978723404,
+   "scale": 0.30141322481930194
+  },
+  {
+   "feature": "running_figure=True",
+   "sentence_level": false,
+   "coef": -0.39392113984221544,
+   "mean": 0.05851063829787234,
+   "scale": 0.23470650503095963
+  },
+  {
+   "feature": "register_marked",
+   "sentence_level": false,
+   "coef": -0.6145961370216706,
+   "mean": 0.6808510638297872,
+   "scale": 0.6309864947377412
+  }
+ ],
+ "band": null
+}

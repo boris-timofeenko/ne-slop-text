@@ -51,6 +51,7 @@ def sentences(text):
 def unquoted(s):
     """Quoted examples are data, not the author's prose: a text about slop may quote slop."""
     s = re.sub(r"`[^`]*`", " ", s)
+    s = re.sub(r"\(GAP[^()]*\)", " ", s)  # gap placeholders are the skill's own markup
     s = re.sub(r"\"[^\"]*\"|“[^”]*”|«[^»]*»", " ", s)
     return s
 
@@ -71,7 +72,11 @@ def main():
     if antitheses > 1:
         hits += 1
         print(f"[more than one antithesis in the text: {antitheses}]")
-    colon_lines = [s for s in prose if re.search(r"\w: [a-zа-я]", unquoted(s)) and unquoted(s).count(",") >= 2]
+    def staged_colon(s):
+        m = re.search(r"\w: (\S.*)", unquoted(s))
+        return bool(m) and len(m.group(1).split()) >= 4  # a payoff after the colon, not a label or a short list
+
+    colon_lines = [s for s in prose if staged_colon(s)]
     for s in colon_lines:
         print(f"[check: colon reveal?] {s.strip()[:160]}")
     print(f"\n{hits} flag(s)" + (f", {len(colon_lines)} colon(s) to check by eye" if colon_lines else ""))

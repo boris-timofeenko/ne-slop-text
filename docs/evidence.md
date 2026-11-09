@@ -85,3 +85,71 @@ marked for the second time.
 
 One judge, three tasks, one domain (job search). Ranks between near-identical texts are noisy. The questionnaire is
 annotated by a model, which shares blind spots with the writers; the human stays the final judge.
+
+## The night: a metric (version 2)
+
+Three agents collected texts by talented authors written before 2022: 44 business letters and posts (12 authors),
+48 engineering posts and README introductions (12), 47 pieces of Russian business and technical prose (13). Talent
+was checked twice: by the author's standing and by two blind ratings without names, keeping the top 60 to 70%. For
+each text an agent rebuilt the task as a list of facts, and Opus, Sonnet and Haiku wrote it: 417 defaults. Two pitfalls
+found on the way: Sonnet sometimes reproduced a famous original almost word for word, and an author's name in the file
+path doubled that copying, so the paths were made neutral.
+
+Six agents compared human and default texts for the same task and listed where they part: 25 sentence moves and 5
+text decisions (`gate/codebook.json`). 49 annotators labelled all 554 texts, sentence by sentence, without knowing
+which was which. A logistic model on the move rates gives 0 for the mean talented human and 100 for the mean default.
+On held-out authors it orders 92 of 100 human-model pairs correctly in letters, 95 in Russian, 78 in engineering
+posts. In English a crude measure (sentence length, commas) does about as well; in Russian the moves do much better
+(95 against 69). What separates the sides is mostly voice: asides, exclamations, slang, irony, questions and quoted
+speech for people; recap endings, softeners, plain openings and slogans for models. Lists, resume-speak and self-praise
+are as frequent in talented human texts as in defaults. Two annotators of the same text differ by about 13 points.
+
+## Rounds 4 to 6: the metric against the reader
+
+| Round | Task | Boris's top | The metric's top | Where the metric's top landed for Boris |
+|---|---|---|---|---|
+| v2 pages | letter, LinkedIn paragraph | loop "to authors" (letter), loop "to the mean" (paragraph) | "to authors" in both | 1st (letter), 4th of 5 (paragraph) |
+| 4 | blog opening on Git scraping, from a fact list, the human original included | v2 "to the mean" | the human original | last |
+| 5 | paragraph on flaky tests, no material at all | v1 | v2 "to authors" | last |
+| 6 | the same two tasks, v2.1 added | default (flaky), v2 "to the mean" (git) | v1 (flaky); all within noise (git) | last (flaky) |
+
+- Texts pushed down the metric lost their links and framing. In the letter the loop dropped the job title; in the
+  paragraph on flaky tests the "to authors" text became a run of numbers and product names.
+- The human original came last in round 4. It was the only text with an em dash; with typography evened out in round 6
+  it came fourth of five. The dash was part of it, not all of it.
+- Version 2.1 kept the story: beats that every edit must keep, edits instead of deletions, a reader's clarity floor,
+  a truth check, and a band (only moves above the talented-human range count, and only in sentences an ablation check
+  finds empty). It came second on both round 6 pages. Its band metric scored almost every text 0, so the gains came
+  from the structure, not from the number.
+- The same texts changed places between rounds 5 and 6 (v1 from 1st to 4th; the default from 2nd to 1st on one task and
+  from 2nd to 5th on the other). One judge separates large differences, not close ones.
+- Without the person's material, the default is not far behind: 2nd in rounds 4 and 5. Slop hurts most where the
+  person is lost.
+
+## Version 2
+
+The guard (`gate/gate.py`) keeps the metric from round 1 of the night and asks it one question: is the draft within
+annotator noise of the defaults' mean for this task? The loop takes the structure of v2.1, the writing rules of v1, and
+`loop/overlap.py` for what the draft takes from every default at once (round 5: all three defaults opened with the
+same Google figure).
+
+Not established yet: whether v2 beats v1 for more than one judge; whether it works in other genres and in Russian
+under blind judgement; whether outside readers or detectors take these texts for AI; how it does with nothing but a CV.
+
+## Two test runs of version 2 (a letter from a CV only)
+
+Two fresh agents ran the whole of SKILL.md on one task: "Why are you valuable to the company?" for a QA role, with
+nothing but a CV and the job ad. Each logged every step and what was unclear or broken.
+
+- First run: the reviser rewrote an opening it was not allowed to touch, and that edit alone flipped the guard's
+  verdict. One annotator put the draft in the cloud and the other did not, and the whole difference was one label
+  (a plain opening, about 12 points). Fixes: two annotators always, an UNCLEAR verdict instead of a tie-break, a scope
+  check (`loop/scope.py`) that throws away a revision touching protected sentences, re-annotation of the draft
+  together with the defaults, a task file with the target length and the gap format.
+- Second run: the scope check passed, and the checker put back a fact the reviser had blurred. The draft had no
+  model-like sentence left, yet both annotators kept it "in the cloud": the defaults of this task were themselves
+  almost free of model moves, so no draft could get far enough below them. On letters written from a fact sheet the
+  metric cannot separate anything. The guard now says so (NOT MEASURABLE) instead of sending the loop after a number.
+- All three default writers saw that the ad requires "an event where your stoicism was proved" and left it out
+  without a word. The draft showed it as a visible gap; the checker now reports every required element as present or
+  as a gap.
