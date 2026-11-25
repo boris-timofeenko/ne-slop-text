@@ -4,7 +4,51 @@ Boris Timofeenko made a quest game, "Belgrade 2026", and its graphics came out a
 a script, characters drawn in code, a hero cut out of a friend's photo with the white fringe of a magic eraser left
 on. That became the `ne-slop` skill. For text it was not enough. Text run through the humanizer skill he could spot
 from a mile away. In November 2026 he built this Claude Code skill with Claude, on his own texts (a CV, letters to
-employers), and tested it blind on himself. This is version 2.
+employers), and tested it blind on himself.
+
+There are three versions now, and each can be installed on its own (see Versions below). Version 3, from November
+2026, is the one `SKILL.md` describes. It is shorter than version 2: Boris read sixteen tasks blind, and most of what
+had been built on top of a simple base made no difference to him.
+
+## How version 3 works
+
+You give a request ("write a post about X for Y"), with material or with none. Claude then goes through seven
+steps.
+
+1. **The task.** It writes down who the reader is, what they already know, and the job of the text in one line:
+   what the reader does or knows after reading. It sets a word limit, 250 for a post or an announcement and 350 for
+   a blog or newsletter piece.
+2. **Whose knowledge.** Your own words, episodes and numbers come first, and the text stays close to them. Things
+   only you can know (your prices, rules, dates, people) are never guessed. Claude writes up to five questions and
+   a short text that holds whatever the answers turn out to be.
+3. **Facts.** If the material does not cover the subject, Claude must search: 4 to 8 queries, every fact written
+   down with its URL. A fact gets into the text only if Claude opened the page and saw it there.
+4. **Plan and draft.** The point in one sentence, then a chain, one line per paragraph, each saying how it follows
+   from the one before. The draft goes along the chain. It opens where the reader stands, carries at most two short
+   quotes, and its last paragraph is what the reader does next.
+5. **Form pass.** A fresh agent gets the plan and the facts, never the draft. It reads four letters by Chekhov
+   (essays by Twain for English) and writes the same content again. It takes the way paragraphs hand over to each
+   other and the way facts enter a sentence, and none of the vocabulary. This step is skipped when the text is
+   built from your own words.
+6. **Sift.** Claude reads both versions as the reader and throws out one that is disjointed or reads as a list of
+   finds. Between two decent versions it takes the second and stops; if the text matters, it shows you both.
+7. **Checks.** `lint/form.py` flags the moulds a model pours any content into: a second contrast pair, a clipped
+   paragraph opener, a quote cut into setup and payoff, a short aphoristic ending, the word limit. `lint/lint.py`
+   is the surface pass, a selection from the humanizer and unslop lists.
+
+A full run takes two to four minutes and one extra agent. Short texts, under about 80 words, skip the search and
+the form pass.
+
+## Versions
+
+| Version | Idea | Where |
+|---|---|---|
+| v3 | Search, the job of the text, a chain of paragraphs, a rewrite from Chekhov's letters, two checks | `main`, tag `v3` |
+| v2 | A loop against what three default models write, with a learned metric as a guard; 10 to 15 minutes a text | tag `v2` |
+| v1 | Compare the draft with three defaults and fix only what it shares with all of them | tag `v1` |
+
+Version 2 is still worth calling when a text is built from your own long material and every empty sentence
+matters. Each tag has a page under Releases.
 
 ## What the tests found
 
@@ -26,8 +70,21 @@ instead of deletions, a clarity floor checked by a reader agent, and a truth che
 second on both of the last two pages and never last. The metric stayed as a guard that answers one question: is the
 draft still in the machine cloud of its task?
 
-One judge, a handful of tasks, mostly about work. Treat the numbers as a direction. The rounds, including what failed,
-are in `docs/evidence.md`. Version 1 is tagged `v1`.
+Version 3 began with the question of what to do when there is no material at all, only a request. Sonnet wrote
+sixteen tasks in several ways, and Boris ranked them on shuffled sheets with the key hidden. The base was plain:
+search first, then write within a word limit. On top of it went a heavy content stage, where a local model scored
+every find for how expected it was, and a form stage, where the text was written again from an author's example.
+The content stage cost five to eight minutes a text and gave nothing on six new tasks. The form stage by Chekhov's
+letters gave the best text in two tasks, on both readings; on three new tasks it came first once and last twice.
+Other authors did worse: Doroshevich's clipped line produced LinkedIn rhythm and lost the facts.
+
+Model judges had preferred the heavy method ten votes of twelve, and Boris did not. A judge fitted to 44 of his own
+"better than" pairs stayed near chance on pairs it had not seen. When he ranked the same texts a second time in a
+new order, he agreed with himself in 14 pairs of 21. So version 3 keeps what his remarks kept coming back to (a
+lost thread, an abrupt opener, huge quotes, a sagging ending) and does not choose between decent variants.
+
+One reader, a handful of tasks, mostly in Russian. Treat the numbers as a direction. The rounds, including what
+failed, are in `docs/evidence.md` for versions 1 and 2 and in `docs/evidence-v3.md` for version 3.
 
 ## Install
 
@@ -35,9 +92,17 @@ are in `docs/evidence.md`. Version 1 is tagged `v1`.
 git clone https://github.com/boris-timofeenko/ne-slop-text ~/.claude/skills/ne-slop-text
 ```
 
-Then ask Claude Code to write or fix a text "ne-slop" (or "не слоп"), or run `/ne-slop-text`. Texts under about 120
-words skip the loop; longer ones take 14 to 18 agent calls and 10 to 15 minutes. The scripts need Python 3 and nothing
-else.
+That gives version 3. For an older one, name its tag:
+
+```bash
+git clone --branch v2 https://github.com/boris-timofeenko/ne-slop-text ~/.claude/skills/ne-slop-text-v2
+```
+
+To keep two versions side by side, change `name:` at the top of the older `SKILL.md` to the folder's name, so that
+the two do not answer to the same command.
+
+Then ask Claude Code to write or fix a text "ne-slop" (or "не слоп"), or run `/ne-slop-text`. The scripts need
+Python 3 and nothing else. The form pass needs Claude Code's subagents, and the search needs web access.
 
 ## Usage
 
@@ -47,10 +112,12 @@ of questions by voice and paste the transcript, in any language.
 ```
 /ne-slop-text write a message to the hiring team for this job: <link>. My CV is cv.pdf. What I said about the project: <transcript>
 /ne-slop-text fix this paragraph: <text>. What actually happened: <notes>
+/ne-slop-text напиши пост в телеграм-канал для бегунов-любителей: стоит ли бежать первый марафон без тренера
 ```
 
-You get the text back, a few lines on what changed and why, the guard's verdict, and the questions the material could
-not answer. The skill does not touch your files; drafts go next to them.
+You get the text back, the questions the material could not answer, and one line on what was done: searched or
+built from your material, form pass used or skipped. The skill does not touch your files; the task, the facts with
+their URLs, the plan and both drafts lie next to them, so you can see where every sentence came from.
 
 ## Example: one paragraph, five ways (made with version 1)
 
@@ -129,6 +196,14 @@ to the next), so trust only large differences, or send the page to several peopl
 
 ```
 SKILL.md                 the pipeline, as Claude reads it
+form/form.md             the brief for the form pass
+form/writers/            four pieces each by Chekhov and Twain, with sources
+lint/form.py             the form check
+lint/lint.py             surface checks, en and ru
+tools/blind.py           blind test page
+docs/evidence-v3.md      what version 3 rests on
+
+version 2, kept as history:
 loop/writer.md           the skeleton first, then the text
 loop/default_prompt.md   how to brief the three default writers
 loop/overlap.py          what the draft takes from every default at once
@@ -142,8 +217,6 @@ loop/reader.md           the clarity floor
 gate/gate.py             the guard: still in the machine cloud?
 gate/codebook.json       25 sentence moves, 5 text decisions
 gate/models/             the metric's weights, en and ru
-lint/lint.py             surface checks, en and ru
-tools/blind.py           blind test page
 learn/                   v1 marks, kept as history
 docs/evidence.md         how the pipeline was found
 ```
@@ -153,7 +226,8 @@ docs/evidence.md         how the pipeline was found
 The first version of this README went through version 1 of the skill. Three fresh agents (Opus, Sonnet, Haiku) wrote
 their own READMEs from the same context, and all three opened like the first draft did: "A Claude Code skill for...".
 One revision moved the game to the top and told the mechanism through the tests. That run is in `docs/readme-loop/`.
-The version 2 sections were checked with the lint only.
+The version 2 sections were checked with the lint only. The version 3 sections were written by its rules and
+checked with both scripts, without the form pass.
 
 ## Credits
 

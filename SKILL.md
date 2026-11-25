@@ -1,157 +1,161 @@
 ---
 name: ne-slop-text
-description: Write or fix text for people so that it reads as written by this person, not by the average of the internet. v2 pipeline - the person's material and the reader first, a story skeleton, then a loop that compares the draft with what default models write for the same task and edits only the empty, model-like sentences without losing the story; a metric trained on talented human texts vs model defaults is used only as a guard ("still in the machine cloud?"), never as a target; then a surface lint. Any language (metric for English and Russian). Use for letters, messages to hiring teams, cover letters, CV sections, bios, posts, READMEs, video scripts. Triggers - "не слоп", "ne-slop", "по-человечески", "живее", "звучит как ChatGPT", "sounds like AI", "unslop", "humanize", "fix this text", "write a message to".
+description: Write or fix text for people so that it reads as written by a person, not by the average of the internet. v3 pipeline - the person's material or mandatory web research, the job of the text in one line, a draft held together by a chain of paragraphs, one rewrite from a positive example (Chekhov's letters for Russian), a sift by the author, then a form check and a surface lint. Works from a bare request with no context. Any language (examples and lint for Russian and English). Use for posts, announcements, newsletter pieces, letters, messages to hiring teams, bios, READMEs. Triggers - "не слоп", "ne-slop", "по-человечески", "живее", "звучит как ChatGPT", "sounds like AI", "unslop", "humanize", "fix this text", "write a post about".
 ---
 
-# ne-slop-text v2
+# ne-slop-text v3
 
-Slop is the average: what a model writes when it fills a gap with the most likely move, or when it is asked to
-"make it better". It lives in decisions (what is said outright, how it opens and ends, which fact comes first, what
-is listed), not in words. Models writing the same task converge: two Opus letters had the same skeleton down to the
-closing line; three models opened a paragraph about flaky tests with the same sentence and the same Google figure.
+Slop is the text the reader could have got by giving the same request to any model. A model with no search writes
+the template. A model that searches first writes better, but different agents bring back the same finds and arrive
+at the same point. What a human reader then notices first is not the content at all: it is whether the text is one
+continuous piece of telling or a list of finds, whether the opening is abrupt, whether the ending sags.
 
-What the tests showed (details in `docs/evidence.md`):
-- The strongest lever is material: the person's own words rendered close to the source beat polishing and beat a model
-  writing from the same transcript. Without material, real specifics found one step past the obvious ones did the work.
-- A metric trained on talented human texts vs model defaults tells a default from a non-default well, but texts pushed
-  down its scale got worse for the reader: glosses, links and framing were cut, and a story turned into a list of facts.
-  So here it only guards.
-- What kept texts good in the loop was its structure: a story skeleton that must survive every edit, "edit, don't
-  delete", a clarity floor, and a truth check.
+What the tests showed (details in `docs/evidence-v3.md`):
+- Mandatory search plus a length limit plus a coherent telling is already most of the result. Nothing built on top
+  of it beat it reliably in blind reading by a person.
+- New content poured into a model's habitual moulds still reads as machine-written, and bans on constructions do
+  not hold: the model takes the neighbouring one. A positive example works better. The author of the example
+  decides: Chekhov's letters gave the best texts, a feuilletonist with a clipped line gave LinkedIn rhythm.
+- Model judges do not predict a human reader, and a judge fitted to one reader's rankings did not transfer. The
+  reader himself agreed with his own earlier ranking in two pairs out of three. Fine differences between decent
+  variants are noise; only coarse ones are real.
+- Scoring "expectedness" with a local model, default texts and a canon step cost most of the time and showed no
+  gain. They are not in this version. Neither is the v2 loop (`loop/`, `gate/` stay in the folder as history; v2
+  itself is installed as `ne-slop-text-v2`).
 
-Scripts and briefs below are in this skill's folder; data files (task.md, drafts, annotations) live next to the task.
+Scripts and briefs below are in this skill's folder; data files (task.md, facts.md, drafts) live next to the task.
 
 ## Inputs
 
-- A task (what to write, for whom, why, how long) or a source (a text to fix).
+- A task (what to write, for whom, where it will be published) or a source text to fix.
 - Material, optional: documents, facts, the person's own words (voice transcripts, chats, notes).
 
 ## Mode
 
-- Short (under ~120 words: chat replies, short messages, titles): Steps 0, 1, 2, 7. The loop has no signal at this
-  length.
-- Full (anything longer that goes to other people): all steps. About 10 to 18 agent calls, 10 to 15 minutes.
+- Short (under ~80 words: chat replies, short messages, titles): Steps 0, 1, 3, 6.
+- Full: all steps. One fresh agent, two to four minutes.
 
-Who does what. You (the session the user talks to) write the task file and the draft, run the scripts and decide.
-Fresh agents do the rest, each seeing only the files named for it: defaults on opus, sonnet and haiku; annotators,
-ablation and reader on sonnet; reviser and checker on opus (the checker needs web search when there is no material).
-Tell every agent not to use skills.
+You (the session the user talks to) write the task file, search, plan and draft. One fresh agent does the form pass
+and sees only the files named for it. Tell it not to use skills.
 
 ## Step 0. The task file
 
-Write `task.md` before anything else: who the readers are and what they literally asked; the purpose; the target
-length in words of the body, as `python3 loop/batch.py words FILE` counts it (no greeting, sign-off or gaps; if the
-task gives none, choose one for the genre and write it down); the elements the text must
-contain (a required episode, logistics, a greeting); where the material is; the gap format `(GAP n: what is missing)`.
-Every agent below gets this file.
+Write `task.md`: the request as given; who the reader is and what they already know about the subject; the JOB in
+one line (what the reader does or knows after reading: an announcement makes people respond, an advice post helps
+them decide, a greeting pleases one person); the word limit (250 for a social post or announcement, 350 for a blog
+or newsletter piece, unless the task gives another); required elements; where the material is.
 
-## Step 1. Material and the reader
+Everything below serves the JOB. A find that works against it is left out, however good.
 
-1. **Material first.** What only this person has: a specific episode, an opinion, a force other than them that shaped
-   events, a hedge or a limit, their own wording. Old texts of the same genre give facts, not voice.
-2. **Missing material.** If the text matters, ask 1 to 3 open questions that do not suggest the answer ("how did it
-   actually happen", "was there a case", "what do you think about X", "what can't you do yet"). Voice answers are best;
-   keep the transcript as material. If you cannot ask: real, checkable specifics from the world (web search), and gaps
-   left visible. Never fill a gap with the average.
-3. **The reader and their code.** What did they literally ask for? Answering in their own words is alive when it makes
-   a point; using their words as labels or headings is slop.
+## Step 1. Whose knowledge this is
 
-## Step 2. Draft with a skeleton
+1. **The person's material first.** What only this person has: an episode, an opinion, a number, their own wording.
+   If it is there, the text is built from it and stays close to it.
+2. **Requester-only knowledge is never guessed.** If the text speaks for an organisation or about a particular
+   person (an announcement, a company post, a greeting) and their practice, rules, contacts, prices, dates or people
+   are not in the material, write up to five questions to `questions.md`, ordered by how much the answer would
+   change the text, and write a short text that holds whatever the answers are. General practice found on the web is
+   not a fact about this requester: do not state it as "we do X".
+3. If you can ask the user, ask one to three open questions that do not suggest the answer.
 
-Write the draft yourself, following `loop/writer.md`: 3 to 5 beats first (hook or question, evidence, turn,
-consequence, open end) into `beats.json`, then the text close to the material. For a source text (fix mode), extract
-its beats instead and keep every sentence that renders the person's material.
+## Step 2. Facts
 
-## Step 3. Defaults (full mode)
+If the material does not cover the subject, searching is mandatory: 4 to 8 queries or page fetches. A model that is
+merely allowed to search does not search. Prefer people's own words (forums, comments, postmortems), primary
+records (documentation, statistics, price lists, timetables), dated events, and anything you can count or measure
+yourself right now.
 
-Spawn 3 fresh agents (opus, sonnet, haiku) with the plain task, the same material and the target length, as in
-`loop/default_prompt.md`. They must not see this skill, the draft or each other. Then:
+Write `facts.md`, one per line: `- <precise fact or verbatim words> | <URL> | page` or `| snippet`. `page` means you
+opened the page and saw it there. Only `page` facts may appear in the text.
+
+## Step 3. Plan and draft
+
+Write `plan.md`: the point (one sentence you would say to this reader; it moves them toward the JOB) and the chain,
+three to six lines, one per paragraph, each after the first starting with how it follows from the one before (`so`,
+`but`, `because`, `for example`, `then`). A fact that does not fit the chain stays out.
+
+Then write `draft.txt` along the chain:
+
+- The first sentence stands where the reader stands (their question, doubt or situation); the point arrives by the
+  end of the first paragraph together with its reason. No verdict, condition or command before the reader has
+  ground for it, and no general introduction to the topic.
+- One continuous piece of telling. At every paragraph break the reader can say why this comes next.
+- At most two short quotes, each under fifteen words; the rest retold in your own words, without nicknames.
+- The last paragraph is what the reader does next, as strong as the opening.
+- Facts exact. An author's post names where a fact comes from, lightly, in the sentence. An organisation's own
+  announcement does not cite articles or other organisations.
+- Within the word limit. For a source text (fix mode): extract its JOB and chain into `plan.md`, keep every
+  sentence that renders the person's material, and fix only what breaks the rules above.
+
+## Step 4. Form pass (full mode)
+
+Skip this step when the draft is built from the person's own words: rendering them close to the source beat every
+rewrite in earlier tests, and a borrowed form would dissolve the voice.
+
+Otherwise spawn one fresh agent (sonnet) with `form/form.md`, `task.md`, `plan.md`, `facts.md` and the output path
+`form.txt`. It must not see `draft.txt`. It rewrites the same content from four pieces by one author in
+`form/writers/`: `ru_chekhov` (his letters) for Russian, `en_twain` for English. It takes the way paragraphs hand
+over and facts enter, never the vocabulary or the period. Do not let it choose a writer at random, and do not use
+its text without Step 5.
+
+In English the form pass changed little in tests; it may be skipped there.
+
+## Step 5. Sift
+
+Read `draft.txt` and `form.txt` yourself as the reader in `task.md`.
+
+1. Throw out a version that is disjointed, reads as a list of finds, opens abruptly, or ends against the JOB.
+2. Check every fact and quote in what remains against `facts.md` and the material; the form pass sometimes lets a
+   `snippet` fact through. Cut or fix.
+3. If both versions are decent, take `form.txt` and stop comparing. Do not spawn judges and do not run rounds: model
+   judges do not predict a human reader, and fine differences between decent variants are below what a reader
+   reproduces on a second reading.
+4. If the text matters to the user, show both and let them choose.
+
+## Step 6. Form check and lint
 
 ```bash
-python3 loop/overlap.py draft.txt d1.txt d2.txt d3.txt --material cv.txt --material vacancy.md > overlap.txt
+python3 lint/form.py FILE --limit 250
+python3 lint/lint.py FILE --lang ru
 ```
 
-It shows what the draft takes from every default at once: an opening close to theirs, specifics every default uses
-(facts from the material are listed apart and never flagged), shared phrasing.
+`form.py` flags, with the offending line: more than one contrast pair, a clipped one-line opener of a paragraph, a
+quote cut into pieces, more than two quotes or a long one, a trace of a private addressee, a short closing line,
+the word limit. `lint.py` is the surface pass (stock phrases, inflated significance, explaining tails, em dash in
+English); then read the lines it lists for checking by eye with `lint/ru.md` or `lint/en.md`. Fix a flagged
+sentence by saying the thing straight, not by swapping in the neighbouring construction. The lint is a selection
+from the humanizer and unslop lists; rewriting "with personality" is excluded on purpose.
 
-## Step 4. Moves, ablation, guard
-
-1. `python3 loop/batch.py texts batch.txt sentences.json DRAFT=draft.txt D1=d1.txt D2=d2.txt D3=d3.txt`
-2. Two fresh annotators label the same batch with `loop/annotator.md` → `annA.json`, `annB.json`. Two, because one
-   text-level label (a plain opening is worth about 12 points) is the size of the annotator noise.
-3. `python3 gate/gate.py annA.json annB.json --lang en --sentences sentences.json` lists every draft sentence with a
-   model-leaning move from either annotator and prints `to ablate: 3,5,7`.
-4. `python3 loop/batch.py ablate abl.txt draft.txt 3,5,7`; a fresh agent with `loop/ablation.md` reads `task.md` and
-   `abl.txt` → which sentences are load-bearing → `lb.json` = `{"DRAFT": [3]}`.
-5. `python3 gate/gate.py annA.json annB.json --lang en --sentences sentences.json --load-bearing lb.json`
-
-The verdict is about the sentences: "out of the cloud", "STILL IN" (both annotators agree), "UNCLEAR" (they
-disagree) or "NOT MEASURABLE" (the defaults' sentences are themselves within noise of a text with no moves, which is
-common when the material is a fact sheet such as a CV). A NOTE says when only the opening or closing label puts the
-draft in the cloud. The sentence list marks each one LOAD-BEARING or EMPTY. Text-level decisions are information only.
-
-**Stop here** (go to Step 7) if there are no EMPTY sentences and `overlap.py` flagged nothing. The verdict alone is not
-a reason to revise: with nothing empty and nothing shared, there is nothing honest left to change.
-
-## Step 5. Revise, check, read (one round)
-
-1. A fresh reviser with `loop/reviser.md` gets `task.md`, the material, `beats.json`, the draft, both reports and the
-   list of sentence numbers it may change: the EMPTY ones, the opening if `overlap.py` flagged it as close to the
-   defaults' opening, and the sentences that carry a specific `overlap.py` flagged.
-2. `python3 loop/scope.py draft.txt revised.txt 3,5` (the same list). If it reports OUT OF SCOPE, keep the old draft or
-   send the reviser back once with the violations.
-3. A fresh checker with `loop/checker.md` checks truth (material, or web sources if there is none), restores dropped
-   facts and lost beats, turns claims about what the person lacks into gaps, checks the required elements. Remove performed sentences that are not in the material. Count the body with
-   `batch.py words`; if it is more than 10% off the target, keep the old draft.
-4. A fresh reader with `loop/reader.md` compares the previous and the new version as the intended reader, in random
-   order as X and Y (it must not know which is new). If the new one is harder to follow, keep the previous one.
-5. If the checked revision is identical to the draft, stop the loop: there is nothing it can change.
-
-## Step 6. Re-check
-
-Build a new batch with the new draft AND the three defaults (`batch.py texts`), have two fresh annotators label it,
-and run the guard. Sentence numbers shift when sentences are merged or split, so match by text: a model-leaning
-sentence identical to one already found load-bearing stays load-bearing; ablate the rest. Write a fresh `lb.json` with
-the new numbers, run the guard and `overlap.py` again. Stop when there are no EMPTY sentences
-and nothing flagged by `overlap.py`, or after 2 rounds. If the verdict is still IN after 2 rounds, or UNCLEAR, say so
-to the user in one line; do not keep editing to move it.
-
-## Step 7. Lint, then output
-
-`python3 lint/lint.py FILE --lang en` (or `ru`): fix what it flags, then read the lines it lists for checking by eye
-(staged colons) with `lint/en.md` or `lint/ru.md`.
-
-Give the user: the text; what changed and why, in a few lines; the guard's verdict in one line; the gaps and the
-questions that would fill them. Never edit the user's original files; write drafts next to them.
+Give the user: the text; the questions from `questions.md`, if any; one line on what was done (searched or built
+from material, form pass used or skipped). Never edit the user's original files; write drafts next to them.
 
 ## Checking a version of the method
 
-- Blind test: `python3 tools/blind.py out.html key.json "Title" "Subtitle" name=path=label ...` (typography is evened
-  out across variants; `--raw` to keep it). Several processings of the same material, ranking without ties.
-- One judge cannot tell close variants apart: in our tests the same two texts swapped places from one day to the next.
-  Trust only large differences (default vs not, story vs list), or use several judges.
-- Sentence marks ("slop" / "alive") contradicted each other across sessions; they are notes, not training data.
-  `learn/` keeps the v1 marks as history.
+- Only blind reading by a person counts. `python3 tools/blind.py out.html key.json "Title" "Subtitle"
+  name=path=label ...` builds a sheet; a sheet of about 2500 words is a comfortable sitting.
+- Before trusting a difference, have the same person re-rank the same texts in a new order. In our test he matched
+  himself in 14 pairs of 21. A difference he calls small is noise.
+- Even the length limit across variants; a text twice as long wins on completeness alone.
+- Do not report model-judge wins as quality. Use model readers only to screen out obvious failures.
 
 ## What not to do (each was tested)
 
-- Chasing the metric. Texts pushed down its scale lost their links and framing and read worse; one reviser even read
-  the metric's code to game it.
-- Deleting framing to look less machine-like. Edit an empty gloss into a concrete consequence instead.
-- Polishing toward the genre ("make it more professional"): resume-speak and the solo hero come back.
-- Generating from good material in one pass: the model dissolves the voice into the average.
-- Performing voice: jokes written as constructions, "add personality" rewrites, asides and slang that are not in the
-  material. That is the humanizer signature people spot.
-- Taking an opinion from old notes instead of from the person, live.
-- Clever turns, even the person's own ("talk to engineers like an engineer").
-- Text about itself ("The X first, since you asked").
-- Leaving a typographic tell in a blind test (one em dash sank a human original).
+- Opening with the most unexpected find. An announcement that recruits opened with "we ask you not to come".
+- Cutting everything without a source. The author's own conclusion needs no source; only facts do.
+- Banning constructions by list. A text with "no contrast pairs" opened with one.
+- A random or "fitting" writer as the example. Short-line feuilletonists give broetry and lose the facts.
+- "Write it as a private letter" with no example: unstable, and the private addressee leaks into a public post.
+- Stating general practice as the requester's own. Ask instead.
+- Chains of forum quotes with nicknames; quotes cut into a setup and a payoff.
+- Scoring sentences for "expectedness" with a local model and optimising it; its maximum is copying the source.
+- Optimising against model judges, or fitting a judge to a handful of human rankings.
+- Everything in the v2 list still holds: chasing a metric, polishing toward the genre, performing voice, text about
+  itself, a typographic tell.
 
 ## Where other approaches fit
 
 - `ne-slop` (the parent skill, any creative work): Step 1 is its text part.
-- StoryScope (Russell et al., COLM 2026): the method behind the guard: decisions instead of words, texts written for
-  the same task, an interpretable human-vs-model model. Its finding that surface rewriting barely moves detection is
-  why the lint comes last.
-- unslop: the portability test and the guardrails against invented facts; its word lists feed the lint.
-- humanizer: its pattern list feeds the lint; its rewriting with "personality and soul" is excluded on purpose.
+- `ne-slop-text-v2`: the loop against default texts with a guard metric. Use it by name when the text is built from
+  the person's own long material and every empty sentence matters.
+- unslop and humanizer: their pattern lists feed `lint/lint.py`; humanizer's rewriting with "personality and soul"
+  is excluded.
